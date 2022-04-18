@@ -7,6 +7,7 @@ mutable struct ExcludeStrategy <: AbstractStrategy
 end
 
 function guess(s::ExcludeStrategy)
+    @assert(length(s.words) > 0)
     word = rand(s.words)
     s.words = filter(x -> x != word, s.words)
     return word

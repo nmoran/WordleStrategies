@@ -3,9 +3,6 @@ using StaticArrays
 
 export IncludeExcludeStrategy
 
-const n_letters = 5
-const Wordle = SVector{n_letters, Char}
-
 function Base.convert(::Type{Wordle}, s::String)
     @assert length(s) == n_letters
     Wordle(s...)

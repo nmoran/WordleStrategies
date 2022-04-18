@@ -1,17 +1,4 @@
-abstract type AbstractStrategy end
-
-function load_words()
-    data_path = joinpath(dirname(dirname(@__FILE__)), "data")
-    valid_words = open(joinpath(data_path, "valid_words.txt"), "r") do io
-        readlines(io)
-    end
-    game_words = open(joinpath(data_path, "game_words.txt"), "r") do io
-        readlines(io)
-    end
-    valid_words, game_words
-end
-
-const valid_words, game_words = load_words()
+using ProgressMeter
 
 function score_guess(guess, hidden)
     """Score the guess on how well it matches. Returns array
@@ -36,7 +23,7 @@ function score_guess(guess, hidden)
     return result
 end
 
-function play_game(word, strategy, max_guesses=Inf64)
+function play_game(word, strategy::AbstractStrategy, max_guesses=Inf64)
     num_guesses = 0
     while num_guesses < max_guesses
         w = guess(strategy)
@@ -55,6 +42,7 @@ end
 function play_n_games(word_iter, strategy_func; repeats=1, kwargs...)
     n_words = length(word_iter)
     guesses = zeros(Float32, n_words)
+    p = Progress(n_words)
     Threads.@threads for i in 1:n_words
         word = word_iter[i]
         total = 0
@@ -63,6 +51,7 @@ function play_n_games(word_iter, strategy_func; repeats=1, kwargs...)
             total += play_game(word, strategy)
         end
         guesses[i] = total/repeats
+        next!(p)
     end
     return guesses
 end

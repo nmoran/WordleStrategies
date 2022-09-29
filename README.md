@@ -53,7 +53,7 @@ Performance of the strategies implemented on the list of game words.
 | Include Exclude Frequency               | 4.95  |  1.5  | 2/12    |
 | Include Exclude Frequency with Position | 4.86  |  1.48 | 2/12    |
 
-A script called `test_strategies.jl` is provided in the examples folder which will reproduce the numbers in this table. Note that because of the stochastic nature of the first two strategies the numbers will likely vary slightly.
+A script called `test_strategies.jl` is provided in the examples folder which will reproduce the numbers in this table. Note that because of the stochastic nature of the first two strategies the numbers will likely vary slightly. Running this script can take sometime, and increasing the number of threads can help greatly in speeding this up. This can be done by starting julia using the `-t` switch.
 
 ### Exclude Strategy
 

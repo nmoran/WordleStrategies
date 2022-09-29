@@ -24,7 +24,7 @@ function score_guess(guess, hidden)
 end
 
 function play_game(word, strategy::AbstractStrategy, max_guesses=Inf64)
-    num_guesses = 0
+    num_guesses = 1
     while num_guesses < max_guesses
         w = guess(strategy)
         @debug "Guessing $(w)"

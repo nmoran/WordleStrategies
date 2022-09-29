@@ -5,7 +5,7 @@ using Statistics
 using Base.Threads
 using StaticArrays
 
-export load_words, score_guess, guess, process_score
+export load_wods, score_guess, guess, process_score
 export play_game, play_n_games
 
 const to = TimerOutput()

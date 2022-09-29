@@ -2,14 +2,30 @@ using DataStructures
 
 export freq_sort_word_list, IncludeExcludeFreqStrategy
 
-function freq_sort_word_list(words::Vector{String})
-    # over all frequency
+function find_letter_counts(words::Vector{String})
+    # overall frequency
     letter_counts = DefaultDict{Char, Int}(0)
     for word in words
         for letter in word
             letter_counts[letter] += 1
         end
     end
+    letter_counts
+end
+
+function find_letter_position_counts(words::Vector{String})
+    # overall frequency and position counts
+    letter_position_counts = DefaultDict{Tuple{Char, Int}, Int}(0)
+    for word in words
+        for (i, letter) in enumerate(word)
+            letter_position_counts[(letter, i)] += 1
+        end
+    end
+    letter_position_counts
+end
+
+function freq_sort_word_list(words::Vector{String})
+    letter_counts = find_letter_counts(words)
 
     function word_score(w)
         occurences = counter(w)
@@ -20,13 +36,7 @@ function freq_sort_word_list(words::Vector{String})
 end
 
 function freq_position_sort_word_list(words::Vector{String})
-    # over all frequency
-    letter_counts = DefaultDict{Tuple{Char, Int}, Int}(0)
-    for word in words
-        for (i, letter) in enumerate(word)
-            letter_counts[(letter, i)] += 1
-        end
-    end
+    letter_counts = find_letter_position_counts(words)
 
     function word_score(w)
         occurences = counter(w)
